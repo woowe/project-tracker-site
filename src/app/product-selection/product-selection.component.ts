@@ -82,17 +82,17 @@ export class ProductSelectionComponent implements OnInit {
       .mergeAll()
       .subscribe(({idx, product, milestones}) => {
 
-        console.log("IDX, PRODUCT, MILESTONES", idx, product, milestones);
-        this.product_info[idx].milestones = milestones;
-        this.product_info[idx].product = product;
-        this.product_info[idx].completion_info = this.customer.calculateMilestoneCompletion(product, milestones);
+        // console.log("IDX, PRODUCT, MILESTONES", idx, product, milestones);
+        this.product_info[product.type].milestones = milestones;
+        this.product_info[product.type].product = product;
+        this.product_info[product.type].completion_info = this.customer.calculateMilestoneCompletion(product, milestones);
 
-        if(this.product_info[idx].status !== "On Schedule") {
-          this.product_info[idx].arc_state = "end-bad";
-          this.product_info[idx].product_state = "end-bad";
+        if(this.product_info[product.type].status !== "On Schedule") {
+          this.product_info[product.type].arc_state = "end-bad";
+          this.product_info[product.type].product_state = "end-bad";
         } else {
-          this.product_info[idx].arc_state = "end-good";
-          this.product_info[idx].product_state = "end-good";
+          this.product_info[product.type].arc_state = "end-good";
+          this.product_info[product.type].product_state = "end-good";
         }
 
       });
