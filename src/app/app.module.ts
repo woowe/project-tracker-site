@@ -29,10 +29,7 @@ import { MilestoneTrackerComponent } from './milestone-tracker/milestone-tracker
 import { ProjectManagerDashboardComponent, AddDealershipDialog } from './project-manager-dashboard/project-manager-dashboard.component';
 import { MilestoneEditorComponent } from './milestone-editor/milestone-editor.component';
 import { FindPeopleComponent } from './find-people/find-people.component';
-import { AutoCompleteComponent } from './auto-complete/auto-complete.component';
 import { UserSliderComponent } from './user-slider/user-slider.component';
-
-declare var firebase: any;
 
 const myFirebaseConfig = {
   apiKey: "AIzaSyC_Qi-DazIAxVyIF_70y_B_80-hS-9tBkI",
@@ -69,7 +66,6 @@ const appRoutes: Routes = [
     AddDealershipDialog,
     MilestoneEditorComponent,
     FindPeopleComponent,
-    // AutoCompleteComponent,
     UserSliderComponent
   ],
   imports: [

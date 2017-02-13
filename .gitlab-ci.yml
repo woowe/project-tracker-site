@@ -1,0 +1,16 @@
+image: node:latest
+cache:
+  paths:
+    - node_modules/
+
+deploy_production:
+  stage: deploy
+  environment: Production
+  only:
+    - master
+  script:
+    - npm install -g firebase-tools @angular/cli
+    - npm install
+    - ng build --prod
+    - firebase use --token 1/-4muSidhlj-PElnBmWc254UusUuvxqNpWPqHsAMQUik production
+    - firebase deploy -m "Pipeline $CI_PIPELINE_ID, build $CI_BUILD_ID" --non-interactive --token 1/-4muSidhlj-PElnBmWc254UusUuvxqNpWPqHsAMQUik

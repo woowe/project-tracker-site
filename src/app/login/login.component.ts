@@ -16,12 +16,12 @@ var look_ms = 1250;
       state('in', style({ transform: 'scale(1)', opacity: 1 })),
       state('start', style({ transform: 'scale(1.5)', opacity: 0 })),
       state('end', style({ transform: 'scale(1.5)', opacity: 0 })),
-      transition("* => *", animate(`${enter_ms}ms cubic-bezier(0.785, 0.135, 0.15, 0.86)`))
+      transition("* => *", animate(enter_ms + 'ms cubic-bezier(0.785, 0.135, 0.15, 0.86)'))
     ]),
     trigger('overlayBackground', [
       state('in', style({ backgroundColor: 'rgba(0, 0, 0, 0.4)' })),
       state('out', style({ backgroundColor: 'rgba(0, 0, 0, 0)' })),
-      transition("* => *", animate(`${enter_ms}ms cubic-bezier(0.785, 0.135, 0.15, 0.86)`))
+      transition("* => *", animate(enter_ms + 'ms cubic-bezier(0.785, 0.135, 0.15, 0.86)'))
     ]),
     trigger('authBackground', [
       state('pending', style({ backgroundColor: '#42A5F5' })),
