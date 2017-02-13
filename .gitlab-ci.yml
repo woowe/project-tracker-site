@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 image: node:latest
 cache:
   paths:
