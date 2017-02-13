@@ -1,0 +1,7 @@
+web:
+    build: .
+    command: "bash"
+    ports:
+        - "4200:4200"
+    volumes:
+        - ./src:/usr/src/app/src

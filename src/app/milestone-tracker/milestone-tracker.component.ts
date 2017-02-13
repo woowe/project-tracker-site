@@ -82,14 +82,14 @@ export class MilestoneTrackerComponent implements OnInit, AfterViewInit {
       .subscribe(({idx, product, milestones}) => {
 
         console.log("IDX, PRODUCT, MILESTONES", idx, product, milestones);
-        this.products[idx].milestones = milestones;
-        this.products[idx].product = product;
-        this.products[idx].completion_info = this.customer.calculateMilestoneCompletion(product, milestones);
-        this.products[idx].milestone_state = "in";
+        this.products[product.type].milestones = milestones;
+        this.products[product.type].product = product;
+        this.products[product.type].completion_info = this.customer.calculateMilestoneCompletion(product, milestones);
+        this.products[product.type].milestone_state = "in";
 
         console.log("PRODUCTS", this.products);
       });
-      
+
   }
 
 }

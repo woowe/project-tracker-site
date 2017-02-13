@@ -136,4 +136,29 @@
 
 .dialog-container .currently-added {
   width: 100%;
+  margin-bottom: 45px;
+}
+.dialog-container .currently-added md-chip {
+  margin-top: 6px;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around
+}
+
+.dialog-container .currently-added md-chip.primary {
+  background-color: #2196F3;
+  color: #fff;
+}
+
+.dialog-container .currently-added md-chip .name {
+  font-size: calc(0.8rem + 0.2vw);
+  margin: 0px 5px;
+}
+
+.dialog-container .currently-added md-chip button[md-button] {
+  margin: 0;
+  padding: 0;
+  min-width: 24px;
+  line-height: 24px;
 }

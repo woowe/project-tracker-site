@@ -56,19 +56,27 @@
                   <md-input dividerColor="accent" #newUserName placeholder="Name"></md-input>
                   <md-input dividerColor="accent" #newUserEmail placeholder="Email"></md-input>
                   <md-input dividerColor="accent" #newUserPhone placeholder="Phone"></md-input>
+                  <md-input dividerColor="accent" #newUserTitle placeholder="Title"></md-input>
                   <md-checkbox color="primary" [checked]="primary_contact" (change)="primaryContactChange(event)">Primary Contact?</md-checkbox>
-                  <button (click)="addUser(newUserName.value, newUserEmail.value, newUserPhone.value)" md-button color="primary">Add User</button>
+                  <button (click)="addUser(newUserName.value, newUserEmail.value, newUserPhone.value, newUserTitle.value)" md-button color="primary">Add User</button>
                 </div>
               </div>
             </div>
             <div class="currently-added">
               <div>Currently Added</div>
+              <div *ngIf="!added_users.length">None added yet</div>
+              <md-chip-list>
+                <md-chip *ngFor="let added_user of added_users; let i = index" [class.primary]="added_user.primary_contact">
+                  <span class="name">{{added_user?.name}}</span>
+                  <button (click)="removeUser(i)" md-button><i class="material-icons">clear</i></button>
+                </md-chip>
+              </md-chip-list>
             </div>
           </div>
         </div>
         <div class="main-tab-footer">
           <button md-button color="primary">CANCEL</button>
-          <button type="submit" md-button color="primary">ADD DEALERSHIP</button>
+          <button type="submit" md-button color="primary" (click)="addDealership(name.value, address.value, city.value, state.value, zip.value)">ADD DEALERSHIP</button>
         </div>
       </form>
 

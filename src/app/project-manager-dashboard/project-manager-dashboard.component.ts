@@ -20,24 +20,51 @@ export class ProjectManagerDashboardComponent implements OnInit {
   info: any;
   dealerships: any[] = [];
 
+  pm_observable: Observable<any> = null;
+
   constructor(private productLogos: ProductLogosService, public af: AngularFire, private router: Router,
               private userInfo: UserInfoService, public dialog: MdDialog, private projectManager: ProjectManagerService) { }
 
   ngOnInit() {
     Observable.from(this.userInfo.auth).filter(auth => auth != null).first().subscribe(auth => {
       console.log('Logged in', auth);
-      this.projectManager.getProjectManagerInfo(auth)
-        .subscribe((dealership: any) => {
-          console.log("DEALERSHIP INFO: ", this.projectManager.info, dealership);
-          if(this.info !== this.projectManager.info) {
-            this.info = this.projectManager.info;
-          }
-          if( dealership.idx > this.dealerships.length) {
-            for(var i = 0; i < dealership.idx - this.dealerships.length; ++i)
-              this.dealerships.push(null);
-          }
-          this.dealerships[dealership.idx] = dealership;
-        });
+      this.getPMInfo(auth);
+    });
+  }
+
+  getPMInfo(auth) {
+    this.dealerships = [];
+    this.pm_observable = this.projectManager.getProjectManagerInfo(auth);
+    this.pm_observable
+      .map((dealership, index) => {
+        if(index >= this.projectManager._num_dealers) {
+          this.dealerships = [];
+          console.log('Throwing error....');
+          throw new Error('error');
+        }
+
+        return (dealership);
+      })
+      .retry(99999)
+      .subscribe( dealership => {
+        console.log("DEALERSHIP INFO: ", dealership);
+
+        if(this.info !== this.projectManager.info) {
+          this.info = this.projectManager.info;
+        }
+
+        var found = null;
+        for(var i = 0; i < this.dealerships.length; ++i) {
+          if(this.dealerships[i].key == dealership.key) { found = i; break; }
+        }
+
+        if(found) {
+          this.dealerships[found] = dealership
+        } else {
+          this.dealerships.push(dealership);
+        }
+
+        console.log("DEALERSHIPS: ", this.dealerships);
     });
   }
 
@@ -118,12 +145,12 @@ export class AddDealershipDialog {
 
   _user: User;
   filtered_users: any[];
-  added_users: any[];
+  added_users: any[] = [];
   primary_contact: boolean = false;
 
+  dealership_uid: string = null;
 
   constructor(private productLogos: ProductLogosService, private userInfo: UserInfoService, public dialogRef: MdDialogRef<AddDealershipDialog>, private projectManager: ProjectManagerService) {
-
     this.products = this.productLogos.getProductLogos().map(v => { return { name: v.alt, selected: false, selected_milestone: null, selected_type: null }; });
     this.userInfo.getAllProductTemplates().subscribe(templates => {
       for(let template of templates){
@@ -189,10 +216,54 @@ export class AddDealershipDialog {
     this.selected_tab = tab_num;
     console.log('Selected tab: ', this.selected_tab);
     this.product_more_info = this.products[idx];
+
+    console.log(this.products);
   }
 
-  addUser(name: string, email: string, phone: string) {
-    this.projectManager.addUser(name, email, phone, this.primary_contact);
+  addUser(name: string, email: string, phone: string, title: string) {
+    if(this.dealership_uid) {
+        this.projectManager.addUser({ name, email, phone, title, primary_contact: this.primary_contact }, this.dealership_uid);
+    }
+    this.added_users.push({ name, email, phone, title, primary_contact: this.primary_contact });
+    this.projectManager.createCustomer(email);
+  }
+
+  removeUser(index: number) {
+    console.log('removed user', index);
+    this.added_users.splice(index, 1);
+  }
+
+  addDealership(name, address, city, state, zip) {
+    this.projectManager.addDealership({name, address, city, state, zip}).then(ref => {
+      this.dealership_uid = ref.path.o[1];
+      console.log("DEALERSHIP UID: ", this.dealership_uid);
+
+      this.projectManager.addDealershipToPm(this.dealership_uid);
+      for(let user of this.added_users) {
+        this.projectManager.addUser(user, this.dealership_uid);
+      }
+
+      for(let product of this.products) {
+        // add milestones first
+        if(product.selected_milestone) {
+          this.projectManager.addMilestoneBuilding({
+            milestones: product.selected_milestone.milestones,
+            name: product.selected_milestone.name
+          }).then(ref => {
+            var m_uid = ref.path.o[1];
+            // add product building
+            // TODO: worry about product_type and type
+            this.projectManager.addProductBuilding({
+              name: product.name,
+              template: m_uid,
+              product_type: 0,
+              activation: '2/25/2017',
+              started: '1/2/2017'
+            }, this.dealership_uid);
+          });
+        }
+      }
+    });
   }
 
   primaryContactChange() {

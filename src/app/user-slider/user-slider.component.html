@@ -1,7 +1,7 @@
 <p-carousel [value]="_users" numVisible="1" easing="easeOutStrong">
     <template let-userInfo pTemplate="item">
       <div class="info">
-        <span>{{ userInfo.user.name }}</span>
+        <span>{{ userInfo.user.name }}</span> <span *ngIf="userInfo.user.title">&nbsp;({{userInfo.user.title}})</span>
       </div>
       <div class="info">
         <i class="material-icons">phone</i>

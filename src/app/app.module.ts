@@ -32,6 +32,8 @@ import { FindPeopleComponent } from './find-people/find-people.component';
 import { AutoCompleteComponent } from './auto-complete/auto-complete.component';
 import { UserSliderComponent } from './user-slider/user-slider.component';
 
+declare var firebase: any;
+
 const myFirebaseConfig = {
   apiKey: "AIzaSyC_Qi-DazIAxVyIF_70y_B_80-hS-9tBkI",
   authDomain: "project-tracker-c98a9.firebaseapp.com",
