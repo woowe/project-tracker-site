@@ -30,6 +30,8 @@ import { ProjectManagerDashboardComponent, AddDealershipDialog } from './project
 import { MilestoneEditorComponent } from './milestone-editor/milestone-editor.component';
 import { FindPeopleComponent } from './find-people/find-people.component';
 import { UserSliderComponent } from './user-slider/user-slider.component';
+import { PtListComponent } from './pt-list/pt-list.component';
+import { PtChipListComponent } from './pt-chip-list/pt-chip-list.component';
 
 const myFirebaseConfig = {
   apiKey: "AIzaSyC_Qi-DazIAxVyIF_70y_B_80-hS-9tBkI",
@@ -66,7 +68,9 @@ const appRoutes: Routes = [
     AddDealershipDialog,
     MilestoneEditorComponent,
     FindPeopleComponent,
-    UserSliderComponent
+    UserSliderComponent,
+    PtListComponent,
+    PtChipListComponent
   ],
   imports: [
     BrowserModule,
