@@ -8,9 +8,9 @@ stages:
   - test
   - deploy
 
-#cache:
-#  paths:
-#    - node_modules/
+cache:
+  paths:
+    - node_modules/
 
 deploy_staging:
   stage: test
