@@ -2,7 +2,6 @@ image: woowe/project-tracker:latest
 
 before_script:
   - firebase -V
-  - ng version
 
 stages:
   - test
@@ -19,6 +18,7 @@ build_then_deploy_staging:
     - /^issue-.*$/
   script:
     - npm install
+    - ng version
     - ng build -prod -e dev
     - firebase use --token 1/-4muSidhlj-PElnBmWc254UusUuvxqNpWPqHsAMQUik project-tracker-staging
     - firebase deploy -m "Pipeline $CI_PIPELINE_ID, build $CI_BUILD_ID" --non-interactive --token 1/-4muSidhlj-PElnBmWc254UusUuvxqNpWPqHsAMQUik
