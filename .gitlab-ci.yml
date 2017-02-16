@@ -1,9 +1,5 @@
 image: node:7.4.0
 
-before_script:
-  - npm install -g firebase-tools
-  - npm install -g @angular/cli
-
 stages:
   - test
   - deploy
@@ -18,6 +14,8 @@ deploy_staging:
   only:
     - /^issue-.*$/
   script:
+    - npm install -g firebase-tools
+    - npm install -g @angular/cli
     - npm install
     - ng build -prod -e dev
     - firebase use --token 1/-4muSidhlj-PElnBmWc254UusUuvxqNpWPqHsAMQUik project-tracker-staging
@@ -31,6 +29,8 @@ deploy_production:
   only:
     - master
   script:
+    - npm install -g firebase-tools
+    - npm install -g @angular/cli
     - npm install
     - ng build -prod -e prod
     - firebase use --token 1/-4muSidhlj-PElnBmWc254UusUuvxqNpWPqHsAMQUik project-tracker-c98a9
