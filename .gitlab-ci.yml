@@ -1,5 +1,9 @@
 image: woowe/project-tracker:latest
 
+before_script:
+  - firebase -V
+  - ng version
+
 stages:
   - test
   - deploy
