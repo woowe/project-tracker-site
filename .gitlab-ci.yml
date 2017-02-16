@@ -8,9 +8,9 @@ stages:
   - test
   - deploy
 
-cache:
-  paths:
-    - node_modules/
+#cache:
+#  paths:
+#    - node_modules/
 
 deploy_staging:
   stage: test
@@ -21,7 +21,8 @@ deploy_staging:
     - npm install
     - ng build -prod -e dev
     - firebase use --token 1/-4muSidhlj-PElnBmWc254UusUuvxqNpWPqHsAMQUik project-tracker-staging
-    - firebase deploy -m "Pipeline $CI_PIPELINE_ID, build $CI_BUILD_ID" --non-interactive --token 1/-4muSidhlj-PElnBmWc254UusUuvxqNpWPqHsAMQUik
+    - firebase deploy --token 1/-4muSidhlj-PElnBmWc254UusUuvxqNpWPqHsAMQUik
+#    - firebase deploy -m "Pipeline $CI_PIPELINE_ID, build $CI_BUILD_ID" --non-interactive --token 1/-4muSidhlj-PElnBmWc254UusUuvxqNpWPqHsAMQUik
 
 
 deploy_production:
