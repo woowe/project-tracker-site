@@ -1,4 +1,4 @@
-image: node:7.4.0
+image: project-tracker:latest
 
 stages:
   - test
@@ -14,13 +14,10 @@ deploy_staging:
   only:
     - /^issue-.*$/
   script:
-    - npm install -g firebase-tools
-    - npm install -g @angular/cli
     - npm install
     - ng build -prod -e dev
     - firebase use --token 1/-4muSidhlj-PElnBmWc254UusUuvxqNpWPqHsAMQUik project-tracker-staging
-    - firebase deploy --token 1/-4muSidhlj-PElnBmWc254UusUuvxqNpWPqHsAMQUik
-#    - firebase deploy -m "Pipeline $CI_PIPELINE_ID, build $CI_BUILD_ID" --non-interactive --token 1/-4muSidhlj-PElnBmWc254UusUuvxqNpWPqHsAMQUik
+    - firebase deploy -m "Pipeline $CI_PIPELINE_ID, build $CI_BUILD_ID" --non-interactive --token 1/-4muSidhlj-PElnBmWc254UusUuvxqNpWPqHsAMQUik
 
 
 deploy_production:
@@ -29,8 +26,6 @@ deploy_production:
   only:
     - master
   script:
-    - npm install -g firebase-tools
-    - npm install -g @angular/cli
     - npm install
     - ng build -prod -e prod
     - firebase use --token 1/-4muSidhlj-PElnBmWc254UusUuvxqNpWPqHsAMQUik project-tracker-c98a9
