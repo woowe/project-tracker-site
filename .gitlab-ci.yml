@@ -1,6 +1,7 @@
 image: woowe/project-tracker:latest
 
 before_script:
+  - ls -al
   - firebase -V
 
 stages:
@@ -11,7 +12,7 @@ stages:
 #   paths:
 #     - node_modules/
 
-build_then_deploy_staging:
+build_then_staging:
   stage: test
   environment: Test
   only:
