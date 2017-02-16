@@ -8,7 +8,7 @@ stages:
 #   paths:
 #     - node_modules/
 
-deploy_staging:
+build_then_deploy_staging:
   stage: test
   environment: Test
   only:
