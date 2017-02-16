@@ -25,20 +25,20 @@
           </div>
         </div>
         <md-input-container style="flex-basis: 100%">
-          <input md-input [(ngModel)]="milestone.name" placeholder="Name" />
+          <input mdInput [(ngModel)]="milestone.name" placeholder="Name" />
         </md-input-container>
         <md-input-container style="flex-grow:1;">
-          <input md-input [(ngModel)]="milestone.status" placeholder="Status" />
+          <input mdInput [(ngModel)]="milestone.status" placeholder="Status" />
         </md-input-container>
         <md-input-container style="flex-grow:1;">
-          <input md-input type="number" [(ngModel)]="milestone.points" placeholder="Points" />
+          <input mdInput type="number" [(ngModel)]="milestone.points" placeholder="Points" />
         </md-input-container>
         <md-input-container style="flex-grow:1;">
-          <input #dayDiff md-input type="number" [(ngModel)]="milestone.days_differential" placeholder="Days Differential" />
+          <input #dayDiff mdInput type="number" [(ngModel)]="milestone.days_differential" placeholder="Days Differential" />
           <md-hint style="color: #2196F3;" align="end">{{ dayDiff.value == "0" ? "Zero means on the start day" : "" }}</md-hint>
         </md-input-container>
         <md-input-container style="flex-basis:100%">
-          <textarea md-input [(ngModel)]="milestone.description" placeholder="Description" ></textarea>
+          <textarea mdInput [(ngModel)]="milestone.description" placeholder="Description" ></textarea>
         </md-input-container>
       </md-list-item>
     </md-list>
@@ -63,19 +63,19 @@
         </div>
         <div style="width:100%; display: flex; flex-wrap: wrap;">
           <md-input-container style="flex-basis: calc(100% - 15px)">
-            <input md-input [(ngModel)]="add_model.name" placeholder="Name" />
+            <input mdInput [(ngModel)]="add_model.name" placeholder="Name" />
           </md-input-container>
           <md-input-container style="flex-basis: calc(33.333% - 15px)">
-            <input md-input [(ngModel)]="add_model.status" placeholder="Status" />
+            <input mdInput [(ngModel)]="add_model.status" placeholder="Status" />
           </md-input-container>
           <md-input-container style="flex-basis: calc(33.333% - 15px)">
-            <input md-input type="number" [(ngModel)]="add_model.points" placeholder="Points" />
+            <input mdInput type="number" [(ngModel)]="add_model.points" placeholder="Points" />
           </md-input-container>
           <md-input-container style="flex-basis: calc(33.333% - 15px)">
-            <input md-input type="number" [(ngModel)]="add_model.days_differential" placeholder="Days Differential" />
+            <input mdInput type="number" [(ngModel)]="add_model.days_differential" placeholder="Days Differential" />
           </md-input-container>
           <md-input-container style="flex-basis:100%">
-            <textarea md-input [(ngModel)]="add_model.description" placeholder="Description" ></textarea>
+            <textarea mdInput [(ngModel)]="add_model.description" placeholder="Description" ></textarea>
           </md-input-container>
         </div>
       </div>

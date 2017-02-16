@@ -1,46 +1,38 @@
-image: node:latest
+image: woowe/project-tracker:latest
 
 before_script:
-  - npm install -g firebase-tools
-  - npm install -g @angular/cli
+  - ls -al
+  - firebase -V
 
 stages:
-  - build
-  - test
+  - staging
   - deploy
 
 cache:
   paths:
     - node_modules/
 
-deploy_staging:
-  stage: build
-  environment: Test
+build_then_deploy_staging:
+  stage: staging
+  environment: Staging
   only:
     - /^issue-.*$/
   script:
     - npm install
-    - ng build
-
-deploy_staging:
-  stage: test
-  environment: Test
-  only:
-    - /^issue-.*$/
-  script:
-    - npm install
-    - ng build --prod
+    - ng version
+    - ng build -prod -e dev
     - firebase use --token 1/-4muSidhlj-PElnBmWc254UusUuvxqNpWPqHsAMQUik project-tracker-staging
     - firebase deploy -m "Pipeline $CI_PIPELINE_ID, build $CI_BUILD_ID" --non-interactive --token 1/-4muSidhlj-PElnBmWc254UusUuvxqNpWPqHsAMQUik
 
 
-deploy_production:
+build_then_deploy_production:
   stage: deploy
   environment: Production
   only:
     - master
   script:
     - npm install
-    - ng build --prod
+    - ng version
+    - ng build -prod -e prod
     - firebase use --token 1/-4muSidhlj-PElnBmWc254UusUuvxqNpWPqHsAMQUik project-tracker-c98a9
     - firebase deploy -m "Pipeline $CI_PIPELINE_ID, build $CI_BUILD_ID" --non-interactive --token 1/-4muSidhlj-PElnBmWc254UusUuvxqNpWPqHsAMQUik

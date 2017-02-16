@@ -20,6 +20,39 @@
   padding: 15px 0;
 }
 
+/* Change the white to any color ;) */
+.login-container >>> input.mat-input-element:-webkit-autofill,
+.login-container >>> input.mat-input-element:-webkit-autofill:hover,
+.login-container >>> input.mat-input-element:-webkit-autofill:focus,
+.login-container >>> input.mat-input-element:-webkit-autofill:active {
+    background-color: transparent !important;
+    transition: background-color 99999999999s ease-in-out 0s;
+    -webkit-text-fill-color: rgba(255, 255, 255, 0.75) !important;
+    background-clip: content-box;
+     /*-webkit-box-shadow: 0 0 0px 1000px white inset;*/
+}
+
+.login-container >>> .mat-input-placeholder {
+  margin-left: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 13px;
+}
+
+.login-container >>> .mat-input-placeholder,
+.login-container >>> input.mat-input-element {
+  color: rgba(255, 255, 255, 0.75);
+  font-family: 'Raleway', sans-serif;
+}
+
+.login-container >>> .mat-input-underline {
+  border-color: rgba(255, 255, 255, 0.75);
+}
+
+.authentication-overlay md-card md-progress-circle path {
+  stroke: #fff;
+}
+
 .product-container .logo-container {
   margin: 15px 30px;
   opacity: 0.4;
@@ -58,7 +91,7 @@ md-card.login-card form {
 md-card.login-card img {
   margin-bottom: 50px;
 }
-md-card.login-card md-input {
+md-card.login-card md-input-container {
   margin-top: 25px;
   width: 100%;
 }

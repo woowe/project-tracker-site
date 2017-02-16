@@ -32,14 +32,13 @@ import { FindPeopleComponent } from './find-people/find-people.component';
 import { UserSliderComponent } from './user-slider/user-slider.component';
 import { PtListComponent } from './pt-list/pt-list.component';
 import { PtChipListComponent } from './pt-chip-list/pt-chip-list.component';
+import { PtFormContainerComponent } from './pt-form-container/pt-form-container.component';
 
-const myFirebaseConfig = {
-  apiKey: "AIzaSyC_Qi-DazIAxVyIF_70y_B_80-hS-9tBkI",
-  authDomain: "project-tracker-c98a9.firebaseapp.com",
-  databaseURL: "https://project-tracker-c98a9.firebaseio.com",
-  storageBucket: "project-tracker-c98a9.appspot.com",
-  messagingSenderId: "508007150160"
-};
+import { environment } from '../environments/environment';
+
+console.log(environment.firebaseConfig.authDomain === "project-tracker-staging.firebaseapp.com" ? 'Development Environment!' : 'Production Environment!');
+
+const myFirebaseConfig = environment.firebaseConfig;
 
 const myFirebaseAuthConfig = {
   provider: AuthProviders.Password,
@@ -70,7 +69,8 @@ const appRoutes: Routes = [
     FindPeopleComponent,
     UserSliderComponent,
     PtListComponent,
-    PtChipListComponent
+    PtChipListComponent,
+    PtFormContainerComponent
   ],
   imports: [
     BrowserModule,
