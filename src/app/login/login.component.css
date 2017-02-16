@@ -58,7 +58,7 @@ md-card.login-card form {
 md-card.login-card img {
   margin-bottom: 50px;
 }
-md-card.login-card md-input {
+md-card.login-card md-input-container {
   margin-top: 25px;
   width: 100%;
 }
