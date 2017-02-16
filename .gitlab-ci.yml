@@ -1,4 +1,4 @@
-image: project-tracker:latest
+image: woowe/project-tracker:latest
 
 stages:
   - test
