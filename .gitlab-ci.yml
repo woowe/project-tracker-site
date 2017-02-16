@@ -5,7 +5,7 @@ before_script:
   - firebase -V
 
 stages:
-  - test
+  - staging
   - deploy
 
 # cache:
@@ -13,14 +13,14 @@ stages:
 #     - node_modules/
 
 build_then_staging:
-  stage: test
-  environment: Test
+  stage: staging
+  environment: Staging
   only:
     - /^issue-.*$/
   script:
     - npm install
     - ng version
-    - ng build -prod -e dev
+    - ng build -prod -e prod
     - firebase use --token 1/-4muSidhlj-PElnBmWc254UusUuvxqNpWPqHsAMQUik project-tracker-staging
     - firebase deploy -m "Pipeline $CI_PIPELINE_ID, build $CI_BUILD_ID" --non-interactive --token 1/-4muSidhlj-PElnBmWc254UusUuvxqNpWPqHsAMQUik
 
