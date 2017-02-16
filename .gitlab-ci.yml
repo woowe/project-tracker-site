@@ -5,7 +5,6 @@ before_script:
   - npm install -g @angular/cli
 
 stages:
-  - build
   - test
   - deploy
 
@@ -14,22 +13,13 @@ cache:
     - node_modules/
 
 deploy_staging:
-  stage: build
-  environment: Test
-  only:
-    - /^issue-.*$/
-  script:
-    - npm install
-    - ng build
-
-deploy_staging:
   stage: test
   environment: Test
   only:
     - /^issue-.*$/
   script:
     - npm install
-    - ng build --prod
+    - ng build -dev -e dev
     - firebase use --token 1/-4muSidhlj-PElnBmWc254UusUuvxqNpWPqHsAMQUik project-tracker-staging
     - firebase deploy -m "Pipeline $CI_PIPELINE_ID, build $CI_BUILD_ID" --non-interactive --token 1/-4muSidhlj-PElnBmWc254UusUuvxqNpWPqHsAMQUik
 
@@ -41,6 +31,6 @@ deploy_production:
     - master
   script:
     - npm install
-    - ng build --prod
+    - ng build -prod -e prod
     - firebase use --token 1/-4muSidhlj-PElnBmWc254UusUuvxqNpWPqHsAMQUik project-tracker-c98a9
     - firebase deploy -m "Pipeline $CI_PIPELINE_ID, build $CI_BUILD_ID" --non-interactive --token 1/-4muSidhlj-PElnBmWc254UusUuvxqNpWPqHsAMQUik

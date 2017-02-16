@@ -1,85 +1,102 @@
 <div class="dialog-container">
   <md-tab-group [selectedIndex]="selected_tab">
-    <md-tab label="">
-      <form>
-        <div class="main-tab-header"><span>Add a Dealership</span></div>
-        <div class="main-tab-editor">
-          <h3><span data-idx="1"></span> Dealership Information</h3>
+    <md-tab class="main-tab" label="">
+      <div class="main-tab-header"><span>Add a Dealership</span></div>
+      <div class="main-tab-editor">
+        <h3><span data-idx="1"></span> Dealership Information</h3>
+        <form class="dealership-info-form">
           <md-grid-list cols="6" rowHeight="75px" gutterSize="10px">
             <md-grid-tile colspan="6" rowspan="1">
-              <md-input dividerColor="accent" #name placeholder="Name"></md-input>
+              <md-input-container>
+                <input md-input required="true" dividerColor="accent" #name placeholder="Name">
+              </md-input-container>
             </md-grid-tile>
             <md-grid-tile colspan="6" rowspan="1">
-              <md-input dividerColor="accent" #address placeholder="Address"></md-input>
+              <md-input-container>
+                <input md-input required="true" dividerColor="accent" #address placeholder="Address">
+              </md-input-container>
             </md-grid-tile>
             <md-grid-tile colspan="2" rowspan="1">
-              <md-input dividerColor="accent" #city placeholder="City"></md-input>
+              <md-input-container>
+                <input md-input required="true" dividerColor="accent" #city placeholder="City">
+              </md-input-container>
             </md-grid-tile>
             <md-grid-tile colspan="2" rowspan="1">
-              <md-input dividerColor="accent" #state placeholder="State"></md-input>
+              <md-input-container>
+                <input md-input required="true" dividerColor="accent" #state placeholder="State">
+              </md-input-container>
             </md-grid-tile>
             <md-grid-tile colspan="2" rowspan="1">
-              <md-input dividerColor="accent" #zip placeholder="Zip"></md-input>
+              <md-input-container>
+                <input md-input required="true" dividerColor="accent" #zip placeholder="Zip">
+              </md-input-container>
             </md-grid-tile>
           </md-grid-list>
-          <h3><span data-idx="2"></span> Add Products</h3>
-          <div class="product-inline-info-container">
-            <div *ngFor="let sp of products; let i = index" class="product-inline-info">
-              <h4 (click)="toggleProductSelect(i)" [class.selected]="sp.selected">{{ sp.name }}</h4>
-              <md-select (click)="selectProduct(i)" placeholder="Type">
-                <md-option *ngFor="let type of sp.p_template?.types; let j = index" [value]="j">
-                  {{ type.name }}
-                </md-option>
-              </md-select>
-              <md-select (click)="selectProduct(i)" placeholder="Milestones">
-                <md-option *ngFor="let milestone of milestone_templates; let k = index" [value]="k">
-                  {{ milestone.name }}
-                </md-option>
-              </md-select>
-              <button (click)="selectProduct(i) + gotoTab(1, i)" md-button color="primary">More&nbsp;<i class="material-icons">chevron_right</i></button>
-            </div>
-          </div>
-          <h3><span data-idx="3"></span> Add Users</h3>
-          <div class="find-people-container">
-            <div class="find-people-controls">
-              <div class="search-controls">
-                <div>Search Exsisting Users</div>
-                <p-autoComplete [suggestions]="filtered_users" (completeMethod)="searchUsers($event)" field="name">
-                  <!-- <template let-user pTemplate="item">
-                    <span [innerHTML]="user.name"></span>
-                  </template> -->
-                </p-autoComplete>
-              </div>
-              <div class="add-user-controls">
-                <div>Add New User</div>
-                <div class="add-user-form">
-                  <md-input dividerColor="accent" #newUserName placeholder="Name"></md-input>
-                  <md-input dividerColor="accent" #newUserEmail placeholder="Email"></md-input>
-                  <md-input dividerColor="accent" #newUserPhone placeholder="Phone"></md-input>
-                  <md-input dividerColor="accent" #newUserTitle placeholder="Title"></md-input>
-                  <md-checkbox color="primary" [checked]="primary_contact" (change)="primaryContactChange(event)">Primary Contact?</md-checkbox>
-                  <button (click)="addUser(newUserName.value, newUserEmail.value, newUserPhone.value, newUserTitle.value)" md-button color="primary">Add User</button>
-                </div>
-              </div>
-            </div>
-            <div class="currently-added">
-              <div>Currently Added</div>
-              <div *ngIf="!added_users.length">None added yet</div>
-              <md-chip-list>
-                <md-chip *ngFor="let added_user of added_users; let i = index" [class.primary]="added_user.primary_contact">
-                  <span class="name">{{added_user?.name}}</span>
-                  <button (click)="removeUser(i)" md-button><i class="material-icons">clear</i></button>
-                </md-chip>
-              </md-chip-list>
-            </div>
+        </form>
+        <h3><span data-idx="2"></span> Add Products</h3>
+        <div class="product-inline-info-container">
+          <div *ngFor="let sp of products; let i = index" class="product-inline-info">
+            <h4 (click)="toggleProductSelect(i)" [class.selected]="sp.selected">{{ sp.name }}</h4>
+            <md-select (click)="selectProduct(i)" placeholder="Type">
+              <md-option *ngFor="let type of sp.p_template?.types; let j = index" [value]="j">
+                {{ type.name }}
+              </md-option>
+            </md-select>
+            <md-select (click)="selectProduct(i)" placeholder="Milestones">
+              <md-option *ngFor="let milestone of milestone_templates; let k = index" [value]="k">
+                {{ milestone.name }}
+              </md-option>
+            </md-select>
+            <button (click)="selectProduct(i) + gotoTab(1, i)" md-button color="primary">More&nbsp;<i class="material-icons">chevron_right</i></button>
           </div>
         </div>
-        <div class="main-tab-footer">
-          <button md-button color="primary">CANCEL</button>
-          <button type="submit" md-button color="primary" (click)="addDealership(name.value, address.value, city.value, state.value, zip.value)">ADD DEALERSHIP</button>
+        <h3><span data-idx="3"></span> Add Users</h3>
+        <div class="find-people-container">
+          <div class="find-people-controls">
+            <div class="search-controls">
+              <div>Search Exsisting Users</div>
+              <p-autoComplete [suggestions]="filtered_users" (completeMethod)="searchUsers($event)" field="name">
+                <!-- <template let-user pTemplate="item">
+                  <span [innerHTML]="user.name"></span>
+                </template> -->
+              </p-autoComplete>
+            </div>
+            <div class="add-user-controls">
+              <div>Add New User</div>
+              <form class="add-user-form">
+                <md-input-container>
+                  <input md-input required="true" dividerColor="accent" #newUserName placeholder="Name">
+                </md-input-container>
+                <md-input-container>
+                  <input md-input required="true" dividerColor="accent" #newUserEmail placeholder="Email">
+                </md-input-container>
+                <md-input-container>
+                  <input md-input required="true" dividerColor="accent" #newUserPhone placeholder="Phone">
+                </md-input-container>
+                <md-input-container>
+                  <input md-input required="true" dividerColor="accent" #newUserTitle placeholder="Title">
+                </md-input-container>
+                <md-checkbox color="primary" [checked]="primary_contact" (change)="primaryContactChange(event)">Primary Contact?</md-checkbox>
+                <button (click)="addUser(newUserName.value, newUserEmail.value, newUserPhone.value, newUserTitle.value)" md-button color="primary">Add User</button>
+              </form>
+            </div>
+          </div>
+          <div class="currently-added">
+            <div>Currently Added</div>
+            <div *ngIf="!added_users.length">None added yet</div>
+            <md-chip-list>
+              <md-chip *ngFor="let added_user of added_users; let i = index" [class.primary]="added_user.primary_contact">
+                <span class="name">{{added_user?.name}}</span>
+                <button (click)="removeUser(i)" md-button><i class="material-icons">clear</i></button>
+              </md-chip>
+            </md-chip-list>
+          </div>
         </div>
-      </form>
-
+      </div>
+      <div class="main-tab-footer">
+        <button md-button color="primary">CANCEL</button>
+        <button type="submit" md-button color="primary" (click)="addDealership(name.value, address.value, city.value, state.value, zip.value)">ADD DEALERSHIP</button>
+      </div>
     </md-tab>
     <md-tab label="">
       <md-toolbar style="background-color: #fff">

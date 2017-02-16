@@ -13,40 +13,33 @@
   font-weight: normal;
 }
 
-.dialog-container form {
-  /*display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;*/
-}
-
-.dialog-container form .main-tab-header {
+.dialog-container .main-tab-header {
   border-bottom: 1px solid lightgrey;
   padding: 24px 0;
   font-size: calc(1.1rem + 0.25vw);
 }
-.dialog-container form .main-tab-footer {
+.dialog-container .main-tab-footer {
   padding: 24px 0;
   border-top: 1px solid lightgrey;
 }
-.dialog-container form .main-tab-editor {
+.dialog-container .main-tab-editor {
   max-height: 72vh;
   overflow: auto;
   padding: 0 24px;
 }
 
-.dialog-container form h3,
-.dialog-container form md-grid-list,
-.dialog-container form md-grid-list md-input {
+.dialog-container .main-tab-editor h3,
+.dialog-container .main-tab-editor md-grid-list,
+.dialog-container .main-tab-editor md-grid-list md-input-container {
   width: 100%;
 }
 
-.dialog-container form h3 {
+.dialog-container .main-tab-editor h3 {
   display: flex;
   align-items: center;
 }
 
-.dialog-container form h3 span {
+.dialog-container .main-tab-editor h3 span {
   border-radius: 50%;
   background: #2196F3;
   /*color: #fff;*/
@@ -57,7 +50,7 @@
   position: relative;
   margin-right: 15px;
 }
-.dialog-container form h3 span::before {
+.dialog-container .main-tab-editor h3 span::before {
   content: attr(data-idx);
   position: absolute;
   top: 50%;
@@ -67,7 +60,7 @@
   font-size: 14px;
 }
 
-.dialog-container form h4 {
+.dialog-container .main-tab-editor h4 {
   /*font-weight: normal;*/
   margin: 0;
   color: #2196F3;
@@ -79,7 +72,7 @@
   text-align: center;
 }
 
-.dialog-container form h4.selected {
+.dialog-container .main-tab-editor h4.selected {
   background-color: #2196F3;
   color: #fff;
 }
