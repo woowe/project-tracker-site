@@ -9,6 +9,34 @@ md-tab-group {
   color: #fff;
 }
 
+md-tab-group >>> md-tab-header {
+  border-bottom: none;
+  padding-top: 16px;
+}
+
+md-tab-group >>> md-tab-header .mat-tab-labels {
+  justify-content: space-around;
+}
+
+md-tab-group >>> md-tab-header .mat-tab-labels .mat-tab-label:focus {
+  background-color: rgba(187, 222, 251, 0.0);
+}
+
+md-tab-group >>> md-tab-header .mat-tab-labels .mat-tab-label:hover,
+md-tab-group >>> md-tab-header .mat-tab-labels .mat-tab-label.mat-tab-label-active {
+  opacity: 1 !important;
+}
+
+md-tab-group >>> .mat-tab-body-wrapper {
+  flex-grow: 1;
+}
+
+md-tab-group >>> .mat-tab-body-wrapper md-tab-body {
+  background-color: #222B32;
+  color: #fff;
+  text-align: center;
+}
+
 .milestone-content {
   max-width: 1240px;
   margin: 0 auto;
@@ -29,8 +57,6 @@ md-card {
 .milestone-content h1, h2, h3, h4, h5, p, a, li {
   font-family: 'Raleway', sans-serif;
   font-weight: normal;
-  /*margin: 0;
-  padding: 0;*/
 }
 
 .pm-contact {

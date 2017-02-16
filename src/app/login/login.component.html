@@ -7,10 +7,10 @@
       ><i class="material-icons">error</i>&nbsp;Your email or login is incorrect</div>
       <form>
         <md-input-container [dividerColor]="loggedIn === false ? 'warn' : 'accent'">
-          <input md-input required="true" #email placeholder="Email">
+          <input mdInput required="true" #email placeholder="Email">
         </md-input-container>
         <md-input-container [dividerColor]="loggedIn === false ? 'warn' : 'accent'">
-          <input md-input required="true" type="password" #password placeholder="Password">
+          <input mdInput required="true" type="password" #password placeholder="Password">
         </md-input-container>
         <button type="submit" md-raised-button color="primary" (click)="login(email.value, password.value)">LOGIN</button>
       </form>

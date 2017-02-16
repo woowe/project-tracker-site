@@ -7,28 +7,28 @@
         <form class="dealership-info-form">
           <md-grid-list cols="6" rowHeight="75px" gutterSize="10px">
             <md-grid-tile colspan="6" rowspan="1">
-              <md-input-container dividerColor="accent">
-                <input md-input required="true" #name placeholder="Name">
+              <md-input-container>
+                <input mdInput required="true" #name placeholder="Name">
               </md-input-container>
             </md-grid-tile>
             <md-grid-tile colspan="6" rowspan="1">
-              <md-input-container dividerColor="accent">
-                <input md-input required="true" #address placeholder="Address">
+              <md-input-container>
+                <input mdInput required="true" #address placeholder="Address">
               </md-input-container>
             </md-grid-tile>
             <md-grid-tile colspan="2" rowspan="1">
-              <md-input-container dividerColor="accent">
-                <input md-input required="true" #city placeholder="City">
+              <md-input-container>
+                <input mdInput required="true" #city placeholder="City">
               </md-input-container>
             </md-grid-tile>
             <md-grid-tile colspan="2" rowspan="1">
-              <md-input-container dividerColor="accent">
-                <input md-input required="true" #state placeholder="State">
+              <md-input-container>
+                <input mdInput required="true" #state placeholder="State">
               </md-input-container>
             </md-grid-tile>
             <md-grid-tile colspan="2" rowspan="1">
-              <md-input-container dividerColor="accent">
-                <input md-input required="true" #zip placeholder="Zip">
+              <md-input-container>
+                <input mdInput required="true" #zip placeholder="Zip">
               </md-input-container>
             </md-grid-tile>
           </md-grid-list>
@@ -65,16 +65,16 @@
               <div>Add New User</div>
               <form class="add-user-form">
                 <md-input-container>
-                  <input md-input required="true" dividerColor="accent" #newUserName placeholder="Name">
+                  <input mdInput required="true" #newUserName placeholder="Name">
                 </md-input-container>
                 <md-input-container>
-                  <input md-input required="true" dividerColor="accent" #newUserEmail placeholder="Email">
+                  <input mdInput required="true" #newUserEmail placeholder="Email">
                 </md-input-container>
                 <md-input-container>
-                  <input md-input required="true" dividerColor="accent" #newUserPhone placeholder="Phone">
+                  <input mdInput required="true" #newUserPhone placeholder="Phone">
                 </md-input-container>
                 <md-input-container>
-                  <input md-input required="true" dividerColor="accent" #newUserTitle placeholder="Title">
+                  <input mdInput required="true" #newUserTitle placeholder="Title">
                 </md-input-container>
                 <md-checkbox color="primary" [checked]="primary_contact" (change)="primaryContactChange(event)">Primary Contact?</md-checkbox>
                 <button (click)="addUser(newUserName.value, newUserEmail.value, newUserPhone.value, newUserTitle.value)" md-button color="primary">Add User</button>

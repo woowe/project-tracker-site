@@ -17,10 +17,13 @@
   border-bottom: 1px solid lightgrey;
   padding: 24px 0;
   font-size: calc(1.1rem + 0.25vw);
+  text-align: center;
 }
 .dialog-container .main-tab-footer {
   padding: 24px 0;
   border-top: 1px solid lightgrey;
+  display: flex;
+  justify-content: center;
 }
 .dialog-container .main-tab-editor {
   max-height: 72vh;
@@ -115,6 +118,7 @@
 .dialog-container .add-user-controls ,
 .dialog-container .search-controls {
   flex-grow: 1;
+  text-align: center;
 }
 
 .dialog-container .search-controls {
@@ -130,10 +134,16 @@
 .dialog-container .currently-added {
   width: 100%;
   margin-bottom: 45px;
+  text-align: center;
 }
+
+.dialog-container .currently-added >>> .md-chip-list-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .dialog-container .currently-added md-chip {
-  margin-top: 6px;
-  margin-bottom: 6px;
+  margin: 6px;
   display: flex;
   align-items: center;
   justify-content: space-around
