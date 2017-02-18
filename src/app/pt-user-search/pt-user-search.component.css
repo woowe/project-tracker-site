@@ -1,0 +1,112 @@
+
+:host.pt-search-users {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  flex-grow: 1;
+}
+
+
+md-input-container {
+  width: calc(100% - 32px);
+}
+
+md-input-container >>> .mat-input-prefix {
+  transform: translateY(16%);
+}
+
+md-input-container span[mdPrefix] i {
+  font-size: 16px;
+  color: #2196F3;
+}
+
+md-list {
+  padding: 0 16px;
+  flex-grow: 1;
+  overflow-y: auto;
+  width: calc(100% - 32px);
+  max-height: 260px;
+}
+md-list-item:not(:last-of-type) {
+  border-bottom: solid 1px rgba(0, 0, 0, 0.12);
+  margin: 0;
+  padding: 0;
+}
+md-list-item >>> .mat-list-item-content {
+  margin: 0;
+  padding: 0 !important;
+  height: auto !important;
+}
+
+md-list-item .list-item-container {
+  padding: 8px 16px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+
+md-list-item .collapser {
+  cursor: pointer;
+  user-select: none;
+}
+
+md-list-item .more-info {
+  overflow: hidden;
+  flex-basis: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 3px;
+}
+
+md-list-item .more-info .col {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  align-items: flex-start;
+  margin: 0px 3px;
+  margin-top: 6px;
+}
+
+md-list-item .more-info .col .label {
+  font-size: 12px;
+  color: rbga(0, 0, 0, 0.5);
+  margin-bottom: 5px;
+}
+
+button[md-button] {
+  width: 100%;
+  margin: 0;
+  /*padding: 0;*/
+  text-align: left;
+}
+
+button[md-button] >>> .mat-button-wrapper {
+  display: flex;
+}
+
+.color-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  position: relative;
+}
+
+.color-circle:not(.active)::after {
+  content: attr(data-letter);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+}

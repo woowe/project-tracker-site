@@ -111,7 +111,7 @@
 
 .dialog-container .find-people-controls {
   display: flex;
-  flex-wrap: wrap;
+  /*flex-wrap: wrap;*/
   margin-bottom: 24px;
 }
 
@@ -119,10 +119,14 @@
 .dialog-container .search-controls {
   flex-grow: 1;
   text-align: center;
+  flex-basis: 50%;
 }
 
 .dialog-container .search-controls {
   border-right: 1px solid lightgrey;
+  display: flex;
+  flex-direction: column;
+
 }
 
 .dialog-container .add-user-controls .add-user-form {

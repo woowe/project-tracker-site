@@ -1,0 +1,34 @@
+
+<div class="search-container">
+  <md-input-container>
+    <span mdPrefix><i class="material-icons">search</i>&nbsp;</span>
+     <input type="text" mdInput #query placeholder="Search users">
+  </md-input-container>
+
+  <md-list>
+    <md-list-item *ngFor="let user of filterUsers(query.value, users_model); let i = index">
+      <div class="list-item-container">
+        <div>
+          <md-checkbox (change)="addUser(user.$key)" [(ngModel)]="info.selected[user.$key]"></md-checkbox>
+          &nbsp;
+          {{ user.name }}
+        </div>
+      <i class="material-icons collapser" unselectable="on" [@collapserState]="info.expanded[user.$key] ? 'expand' : 'collapse' " (click)="toggleExpanded(user.$key)">expand_more</i>
+        <div class="more-info" [@expandState]="info.expanded[user.$key] ? 'in' : 'out' ">
+          <div class="col">
+            <span class="label" *ngIf="user?.email">Email</span>
+            {{user.email}}
+          </div>
+          <div class="col" *ngIf="user?.phone">
+            <span class="label">Phone</span>
+            {{ user.phone | phone_format:true }}
+          </div>
+          <div class="col" *ngIf="user?.title">
+            <span class="label">Title</span>
+            {{user.title}}
+          </div>
+        </div>
+      </div>
+    </md-list-item>
+  </md-list>
+</div>
