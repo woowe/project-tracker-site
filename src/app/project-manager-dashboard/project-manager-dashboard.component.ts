@@ -8,8 +8,6 @@ import { MdDialog, MdDialogRef } from '@angular/material';
 
 import { Observable, BehaviorSubject } from 'rxjs';
 
-import { fuzzysearch } from '../utils/utils';
-
 @Component({
   selector: 'app-project-manager-dashboard',
   templateUrl: './project-manager-dashboard.component.html',
@@ -23,12 +21,15 @@ export class ProjectManagerDashboardComponent implements OnInit {
   pm_observable: Observable<any> = null;
 
   constructor(private productLogos: ProductLogosService, public af: AngularFire, private router: Router,
-              private userInfo: UserInfoService, public dialog: MdDialog, private projectManager: ProjectManagerService) { }
+              private userInfo: UserInfoService, public dialog: MdDialog, private projectManager: ProjectManagerService) {}
 
   ngOnInit() {
     Observable.from(this.userInfo.auth).filter(auth => auth != null).first().subscribe(auth => {
       console.log('Logged in', auth);
       this.getPMInfo(auth);
+      let dialogRef = this.dialog.open(AddDealershipDialog, {
+        disableClose: false
+      });
     });
   }
 
@@ -144,7 +145,7 @@ export class AddDealershipDialog {
   product_more_info: any = { name: null, selected: false, selected_milestone: null, selected_type: null };
 
   _user: User;
-  filtered_users: any[];
+  filtered_users: any[] = [];
   added_users: any[] = [];
   primary_contact: boolean = false;
 
@@ -173,21 +174,11 @@ export class AddDealershipDialog {
       }
       console.log('Milestone templates: ', this.milestone_templates);
     });
-  }
 
-  searchUsers(event) {
     this.projectManager.getAllUsers().subscribe(users => {
-      this.filtered_users = this.filterUsers(event.query, users);
+      console.log("FETCHED USERS: ", users);
+      this.filtered_users = users;
     });
-  }
-
-  filterUsers(query, users) {
-    var filtered = [];
-    for(let user of users) {
-      if(fuzzysearch(query, user.name))
-        filtered.push(user);
-    }
-    return filtered;
   }
 
   toggleProductSelect(idx: number) {
@@ -228,9 +219,11 @@ export class AddDealershipDialog {
     // this.projectManager.createCustomer(email);
   }
 
-  removeUser(index: number) {
-    console.log('removed user', index);
-    this.added_users.splice(index, 1);
+  removeUser(idx: number) {
+    this.added_users = [
+      ...this.added_users.slice(0, idx),
+      ...this.added_users.slice(idx+1)
+   ];
   }
 
   addDealership(name, address, city, state, zip) {

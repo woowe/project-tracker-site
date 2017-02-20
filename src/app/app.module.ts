@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule, MdDialogModule } from '@angular/material';
 import { RouterModule, Routes } from '@angular/router';
@@ -35,6 +35,7 @@ import { PtChipListComponent } from './pt-chip-list/pt-chip-list.component';
 import { PtFormContainerComponent } from './pt-form-container/pt-form-container.component';
 
 import { environment } from '../environments/environment';
+import { PtUserSearchComponent } from './pt-user-search/pt-user-search.component';
 
 console.log(environment.firebaseConfig.authDomain === "project-tracker-staging.firebaseapp.com" ? 'Development Environment!' : 'Production Environment!');
 
@@ -70,18 +71,20 @@ const appRoutes: Routes = [
     UserSliderComponent,
     PtListComponent,
     PtChipListComponent,
-    PtFormContainerComponent
+    PtFormContainerComponent,
+    PtUserSearchComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
-    MaterialModule.forRoot(),
+    MaterialModule,
     MdDialogModule,
     AngularFireModule.initializeApp(myFirebaseConfig, myFirebaseAuthConfig),
     CarouselModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    ReactiveFormsModule
   ],
   entryComponents: [
     AddDealershipDialog

@@ -55,11 +55,13 @@
           <div class="find-people-controls">
             <div class="search-controls">
               <div>Search Exsisting Users</div>
-              <p-autoComplete [suggestions]="filtered_users" (completeMethod)="searchUsers($event)" field="name">
-                <!-- <template let-user pTemplate="item">
-                  <span [innerHTML]="user.name"></span>
-                </template> -->
-              </p-autoComplete>
+              <!--<p-autoComplete [suggestions]="filtered_users" (completeMethod)="searchUsers($event)" field="name">-->
+                <!-- <template let-user pTemplate="item"> -->
+              <!--    <span [innerHTML]="user.name"></span>-->
+              <!--  </template> -->
+              <!--</p-autoComplete>-->
+
+              <pt-user-search [(usersModel)]="filtered_users" [(addedUsersModel)]="added_users"></pt-user-search>
             </div>
             <div class="add-user-controls">
               <div>Add New User</div>

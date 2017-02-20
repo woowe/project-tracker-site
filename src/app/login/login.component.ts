@@ -59,6 +59,7 @@ export class LoginComponent implements OnInit {
   }
 
   navigate_to_next_page(group: string) {
+    if(!group) { return; }
     switch(group.toLowerCase()) {
       case "admin":
         this.router.navigate(['/product-selection']);
