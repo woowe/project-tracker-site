@@ -1,0 +1,17 @@
+
+<form [formGroup]="user_form" (ngSubmit)="onSubmit()" class="user-info-form">
+  <md-input-container>
+    <input mdInput required formControlName="name" placeholder="Name">
+  </md-input-container>
+  <md-input-container>
+    <input mdInput formControlName="email" placeholder="Email">
+  </md-input-container>
+  <md-input-container>
+    <input mdInput formControlName="phone" placeholder="Phone">
+  </md-input-container>
+  <md-input-container>
+    <input mdInput formControlName="title" placeholder="Title">
+  </md-input-container>
+  <md-checkbox color="primary" formControlName="primary_contact">Is Primary Contact</md-checkbox>
+  <button type="submit" [disabled]="!user_form.valid" md-raised-button color="primary">Submit</button>
+</form>

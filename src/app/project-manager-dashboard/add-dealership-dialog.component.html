@@ -1,7 +1,9 @@
 <div class="dialog-container">
   <md-tab-group [selectedIndex]="selected_tab">
     <md-tab class="main-tab" label="">
-      <div class="main-tab-header"><span>Add a Dealership</span></div>
+      <div class="main-tab-header">
+        <h1 md-dialog-title>Add a Dealership</h1>
+      </div>
       <div class="main-tab-editor">
         <h3><span data-idx="1"></span> Dealership Information</h3>
         <form class="dealership-info-form">
@@ -55,32 +57,11 @@
           <div class="find-people-controls">
             <div class="search-controls">
               <div>Search Exsisting Users</div>
-              <!--<p-autoComplete [suggestions]="filtered_users" (completeMethod)="searchUsers($event)" field="name">-->
-                <!-- <template let-user pTemplate="item"> -->
-              <!--    <span [innerHTML]="user.name"></span>-->
-              <!--  </template> -->
-              <!--</p-autoComplete>-->
-
               <pt-user-search [(usersModel)]="filtered_users" [(addedUsersModel)]="added_users"></pt-user-search>
             </div>
             <div class="add-user-controls">
               <div>Add New User</div>
-              <form class="add-user-form">
-                <md-input-container>
-                  <input mdInput required="true" #newUserName placeholder="Name">
-                </md-input-container>
-                <md-input-container>
-                  <input mdInput required="true" #newUserEmail placeholder="Email">
-                </md-input-container>
-                <md-input-container>
-                  <input mdInput required="true" #newUserPhone placeholder="Phone">
-                </md-input-container>
-                <md-input-container>
-                  <input mdInput required="true" #newUserTitle placeholder="Title">
-                </md-input-container>
-                <md-checkbox color="primary" [checked]="primary_contact" (change)="primaryContactChange(event)">Primary Contact?</md-checkbox>
-                <button (click)="addUser(newUserName.value, newUserEmail.value, newUserPhone.value, newUserTitle.value)" md-button color="primary">Add User</button>
-              </form>
+              <pt-user-info></pt-user-info>
             </div>
           </div>
           <div class="currently-added">
@@ -96,8 +77,10 @@
         </div>
       </div>
       <div class="main-tab-footer">
-        <button md-button color="primary">CANCEL</button>
-        <button type="submit" md-button color="primary" (click)="addDealership(name.value, address.value, city.value, state.value, zip.value)">ADD DEALERSHIP</button>
+        <md-dialog-actions>
+          <button md-dialog-close md-button color="primary">CANCEL</button>
+          <button type="submit" md-button color="primary" (click)="addDealership(name.value, address.value, city.value, state.value, zip.value)">ADD DEALERSHIP</button>
+        </md-dialog-actions>
       </div>
     </md-tab>
     <md-tab label="">

@@ -216,7 +216,7 @@ export class AddDealershipDialog {
         this.projectManager.addUser({ name, email, phone, title, primary_contact: this.primary_contact }, this.dealership_uid);
     }
     this.added_users.push({ name, email, phone, title, primary_contact: this.primary_contact });
-    // this.projectManager.createCustomer(email);
+    this.projectManager.createCustomer(email);
   }
 
   removeUser(idx: number) {

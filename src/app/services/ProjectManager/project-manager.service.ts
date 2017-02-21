@@ -92,12 +92,16 @@ export class ProjectManagerService {
 
   createCustomer(email) {
     var password = generateUID()();
-    console.log(password);
+    // console.log(password);
     return this.firebaseAuth.createUser({
       email,
       password
-    }).then( () => {
-      firebase.auth().sendPasswordResetEmail(email);
+    })
+    .then( r => {
+      if(r) {
+        firebase.auth().sendPasswordResetEmail(email);
+        return r.uid;
+      }
     });
   }
 
@@ -109,16 +113,32 @@ export class ProjectManagerService {
     return this.af.database.list(`/Users/${this._uid}/dealerships`).push(dealership_uid);
   }
 
-  addUser(user_obj: any, dealership_uid: string) {
-    let user = Object.assign(user_obj, { group: 'customer' });
-    return this._users.push(user).then(ref => {
-        this.af.database.list(`/Dealerships/${dealership_uid}/users/`).push({
-           'role': user_obj.primary_contact ? 'primary' : 'secondary',
-           'uid': ref.path.o[1]
-        });
+  addDealershipToUser(user_uid, dealership_uid) {
+    return this.af.database.list(`/Users/${user_uid}/dealerships`).push(dealership_uid);
+  }
 
-        this.createCustomer(user_obj.email);
-    });
+  updatePmInfo(updated_info: any) {
+    return this.af.database.object(`/Users/${this._uid}`).update(updated_info);
+  }
+
+  updateUserInfo(user_uid: string, updated_info: any) {
+    return this.af.database.object(`/Users/${user_uid}`).update(updated_info);
+  }
+
+  addUser(user_obj: any, dealership_uid: string) {
+    let user = Object.assign(user_obj, { dealerships: [dealership_uid], group: 'customer' });
+
+    return this.createCustomer(user.email)
+      .then( uid => {
+        if( uid ) {
+          return this._users.push(user).then(ref => {
+            this.af.database.list(`/Dealerships/${dealership_uid}/users/`).push({
+              'role': user.primary_contact ? 'primary' : 'secondary',
+              'uid': ref.path.o[1]
+            });
+          });
+        }
+      });
   }
 
   addMilestoneBuilding(milestone_obj: any) {
