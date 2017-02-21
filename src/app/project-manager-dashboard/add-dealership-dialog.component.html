@@ -6,35 +6,7 @@
       </div>
       <div class="main-tab-editor">
         <h3><span data-idx="1"></span> Dealership Information</h3>
-        <form class="dealership-info-form">
-          <md-grid-list cols="6" rowHeight="75px" gutterSize="10px">
-            <md-grid-tile colspan="6" rowspan="1">
-              <md-input-container>
-                <input mdInput required="true" #name placeholder="Name">
-              </md-input-container>
-            </md-grid-tile>
-            <md-grid-tile colspan="6" rowspan="1">
-              <md-input-container>
-                <input mdInput required="true" #address placeholder="Address">
-              </md-input-container>
-            </md-grid-tile>
-            <md-grid-tile colspan="2" rowspan="1">
-              <md-input-container>
-                <input mdInput required="true" #city placeholder="City">
-              </md-input-container>
-            </md-grid-tile>
-            <md-grid-tile colspan="2" rowspan="1">
-              <md-input-container>
-                <input mdInput required="true" #state placeholder="State">
-              </md-input-container>
-            </md-grid-tile>
-            <md-grid-tile colspan="2" rowspan="1">
-              <md-input-container>
-                <input mdInput required="true" #zip placeholder="Zip">
-              </md-input-container>
-            </md-grid-tile>
-          </md-grid-list>
-        </form>
+        <pt-dealership-info></pt-dealership-info>
         <h3><span data-idx="2"></span> Add Products</h3>
         <div class="product-inline-info-container">
           <div *ngFor="let sp of products; let i = index" class="product-inline-info">
@@ -61,7 +33,7 @@
             </div>
             <div class="add-user-controls">
               <div>Add New User</div>
-              <pt-user-info></pt-user-info>
+              <pt-user-info [(userModel)]="add_user" (submit)="addUser()"></pt-user-info>
             </div>
           </div>
           <div class="currently-added">

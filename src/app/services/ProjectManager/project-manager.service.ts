@@ -90,17 +90,26 @@ export class ProjectManagerService {
     return this.af.database.list('/Users/');
   }
 
-  createCustomer(email) {
+  getUser(email: string): Observable<any> {
+    return Observable.from( this.af.database.list('/Users', {
+      query: {
+        orderByChild: 'email',
+        equalTo: email,
+      }
+    }) ).first();
+  }
+
+  createCustomer(user_obj: any) {
     var password = generateUID()();
-    // console.log(password);
     return this.firebaseAuth.createUser({
-      email,
+      email: user_obj.email,
       password
     })
     .then( r => {
       if(r) {
-        firebase.auth().sendPasswordResetEmail(email);
-        return r.uid;
+        firebase.auth().sendPasswordResetEmail(user_obj.email);
+        return this.addUser(user_obj, r.uid)
+          .then( () => r );
       }
     });
   }
@@ -117,6 +126,13 @@ export class ProjectManagerService {
     return this.af.database.list(`/Users/${user_uid}/dealerships`).push(dealership_uid);
   }
 
+  addUserToDealership(primary_contact, user_uid, dealership_uid) {
+    this.af.database.list(`/Dealerships/${dealership_uid}/users/`).push({
+      'role': primary_contact ? 'primary' : 'secondary',
+      'uid': user_uid
+    });
+  }
+
   updatePmInfo(updated_info: any) {
     return this.af.database.object(`/Users/${this._uid}`).update(updated_info);
   }
@@ -125,20 +141,10 @@ export class ProjectManagerService {
     return this.af.database.object(`/Users/${user_uid}`).update(updated_info);
   }
 
-  addUser(user_obj: any, dealership_uid: string) {
-    let user = Object.assign(user_obj, { dealerships: [dealership_uid], group: 'customer' });
+  addUser(user_obj: any, user_uid: string) {
+    let user = Object.assign(user_obj, { group: 'customer' });
 
-    return this.createCustomer(user.email)
-      .then( uid => {
-        if( uid ) {
-          return this._users.push(user).then(ref => {
-            this.af.database.list(`/Dealerships/${dealership_uid}/users/`).push({
-              'role': user.primary_contact ? 'primary' : 'secondary',
-              'uid': ref.path.o[1]
-            });
-          });
-        }
-      });
+    return this.af.database.object(`/Users/${user_uid}`).update(user_obj);
   }
 
   addMilestoneBuilding(milestone_obj: any) {

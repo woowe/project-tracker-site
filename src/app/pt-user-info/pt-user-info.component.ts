@@ -3,40 +3,50 @@ import {
   OnInit,
   Input,
   Output,
-  EventEmitter
+  EventEmitter,
+  AfterViewInit,
+  ViewChild,
+  ElementRef
 } from '@angular/core';
-
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { Observable } from 'rxjs';
+import { ProjectManagerService } from '../services/ProjectManager/project-manager.service';
+
+import { emailValidator, phoneValidator, userExistsValidatorFactory } from '../validators/pt-validators';
 
 @Component({
   selector: 'pt-user-info',
   templateUrl: './pt-user-info.component.html',
   styleUrls: ['./pt-user-info.component.scss']
 })
-export class PtUserInfoComponent implements OnInit {
+export class PtUserInfoComponent {
   @Output() userModelChange = new EventEmitter();
 
   user_model: any = {};
 
   user_form: FormGroup;
 
-  submit = false;
+  submit_val = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private pm: ProjectManagerService) {
     this.buildForm();
   }
 
   buildForm(): void {
     this.user_form = this.fb.group({
       'name': [this.user_model.name, Validators.required],
-      'email': [this.user_model.email],
-      'phone': [this.user_model.phone],
+      'email': [this.user_model.email, Validators.compose([Validators.required, emailValidator]), userExistsValidatorFactory(this.pm)],
+      'phone': [this.user_model.phone, Validators.compose([Validators.required, phoneValidator])],
       'title': [this.user_model.title],
       'primary_contact': [this.user_model.primary_contact]
     });
 
     this.user_form.valueChanges
       .subscribe( data => this.onValueChanged(data));
+
+    this.user_form.get('email').statusChanges
+      .subscribe( data => this.onValueChanged(data) );
 
     this.onValueChanged();
   }
@@ -58,11 +68,25 @@ export class PtUserInfoComponent implements OnInit {
     }
   }
 
-  onSubmit() {
-    this.submit = true;
+  cleanData(user_form_data: any) {
+    if(user_form_data.title === null) {
+      user_form_data.title = "";
+    }
+
+    if(user_form_data.primary_contact === null) {
+      user_form_data.primary_contact = false;
+    }
+
+    user_form_data.phone = user_form_data.phone.replace(/#|ext|extension/gi, 'x');
+    user_form_data.phone = user_form_data.phone.replace(/[^x\d]*/gi, '');
+    return user_form_data;
   }
 
-  ngOnInit() {
+  onSubmit() {
+    this.submit_val = true;
+
+    this.user_model = this.cleanData(this.user_form.value);
+    this.userModelChange.emit(this.user_model);
   }
 
   @Input()
@@ -78,10 +102,21 @@ export class PtUserInfoComponent implements OnInit {
 
   formErrors = {
     'name': '',
+    'phone': '',
+    'email': ''
   };
   validationMessages = {
     'name': {
       'required': 'Name is required.'
+    },
+    'phone': {
+      'valid_phone': 'The phone number is not valid',
+      'required': 'Phone is required.'
+    },
+    'email': {
+      'valid_email': 'The email address is not valid',
+      'user_exsits': 'The email address is already in use',
+      'required': 'Email is required.'
     }
   };
 
