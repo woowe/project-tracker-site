@@ -1,0 +1,20 @@
+
+<form [formGroup]="user_form" (ngSubmit)="onSubmit()" class="user-info-form">
+  <md-input-container [dividerColor]="formErrors['name'] ? 'warn' : 'accent'">
+    <input mdInput required formControlName="name" placeholder="Name">
+    <md-hint align="end" *ngIf="formErrors['name']">{{ formErrors['name'] }}</md-hint>
+  </md-input-container>
+  <md-input-container [dividerColor]="formErrors['email'] ? 'warn' : 'accent'">
+    <input mdInput #email formControlName="email" placeholder="Email" required userExsitsValidator>
+    <md-hint align="end" *ngIf="formErrors['email']">{{ formErrors['email'] }}</md-hint>
+  </md-input-container>
+  <md-input-container [dividerColor]="formErrors['phone'] ? 'warn' : 'accent'">
+    <input mdInput formControlName="phone" placeholder="Phone" required>
+    <md-hint align="end" *ngIf="formErrors['phone']">{{ formErrors['phone'] }}</md-hint>
+  </md-input-container>
+  <md-input-container>
+    <input mdInput formControlName="title" placeholder="Title">
+  </md-input-container>
+  <md-checkbox color="primary" formControlName="primary_contact">Is Primary Contact</md-checkbox>
+  <button type="submit" [disabled]="!user_form.valid" md-raised-button color="primary">Submit</button>
+</form>

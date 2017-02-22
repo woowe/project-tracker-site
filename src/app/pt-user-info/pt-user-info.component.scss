@@ -1,0 +1,22 @@
+form.user-info-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 0px 16px;
+
+  md-input-container {
+    width: 100%;
+
+    &.ng-invalid {
+
+      md-hint {
+        color: rgba(189, 52, 42, 0.729412);
+      }
+    }
+  }
+
+  md-checkbox {
+    margin-bottom: 8px;
+  }
+}

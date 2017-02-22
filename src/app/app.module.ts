@@ -36,6 +36,8 @@ import { PtFormContainerComponent } from './pt-form-container/pt-form-container.
 
 import { environment } from '../environments/environment';
 import { PtUserSearchComponent } from './pt-user-search/pt-user-search.component';
+import { PtUserInfoComponent } from './pt-user-info/pt-user-info.component';
+import { PtDealershipInfoComponent } from './pt-dealership-info/pt-dealership-info.component';
 
 console.log(environment.firebaseConfig.authDomain === "project-tracker-staging.firebaseapp.com" ? 'Development Environment!' : 'Production Environment!');
 
@@ -72,7 +74,9 @@ const appRoutes: Routes = [
     PtListComponent,
     PtChipListComponent,
     PtFormContainerComponent,
-    PtUserSearchComponent
+    PtUserSearchComponent,
+    PtUserInfoComponent,
+    PtDealershipInfoComponent
   ],
   imports: [
     BrowserModule,

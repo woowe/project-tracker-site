@@ -11,6 +11,10 @@ body, html {
   height: 100%;
 }
 
+md-input-container.ng-dirty.ng-invalid label.mat-focused span.mat-placeholder-required {
+  color: rgba(189, 52, 42, 0.729412) !important;
+}
+
 
 .dialog-container md-tab-body {
   background-color: #fff;

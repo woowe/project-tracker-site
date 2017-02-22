@@ -90,14 +90,27 @@ export class ProjectManagerService {
     return this.af.database.list('/Users/');
   }
 
-  createCustomer(email) {
+  getUser(email: string): Observable<any> {
+    return Observable.from( this.af.database.list('/Users', {
+      query: {
+        orderByChild: 'email',
+        equalTo: email,
+      }
+    }) ).first();
+  }
+
+  createCustomer(user_obj: any) {
     var password = generateUID()();
-    console.log(password);
     return this.firebaseAuth.createUser({
-      email,
+      email: user_obj.email,
       password
-    }).then( () => {
-      firebase.auth().sendPasswordResetEmail(email);
+    })
+    .then( r => {
+      if(r) {
+        firebase.auth().sendPasswordResetEmail(user_obj.email);
+        return this.addUser(user_obj, r.uid)
+          .then( () => r );
+      }
     });
   }
 
@@ -109,16 +122,29 @@ export class ProjectManagerService {
     return this.af.database.list(`/Users/${this._uid}/dealerships`).push(dealership_uid);
   }
 
-  addUser(user_obj: any, dealership_uid: string) {
-    let user = Object.assign(user_obj, { group: 'customer' });
-    return this._users.push(user).then(ref => {
-        this.af.database.list(`/Dealerships/${dealership_uid}/users/`).push({
-           'role': user_obj.primary_contact ? 'primary' : 'secondary',
-           'uid': ref.path.o[1]
-        });
+  addDealershipToUser(user_uid, dealership_uid) {
+    return this.af.database.list(`/Users/${user_uid}/dealerships`).push(dealership_uid);
+  }
 
-        this.createCustomer(user_obj.email);
+  addUserToDealership(primary_contact, user_uid, dealership_uid) {
+    this.af.database.list(`/Dealerships/${dealership_uid}/users/`).push({
+      'role': primary_contact ? 'primary' : 'secondary',
+      'uid': user_uid
     });
+  }
+
+  updatePmInfo(updated_info: any) {
+    return this.af.database.object(`/Users/${this._uid}`).update(updated_info);
+  }
+
+  updateUserInfo(user_uid: string, updated_info: any) {
+    return this.af.database.object(`/Users/${user_uid}`).update(updated_info);
+  }
+
+  addUser(user_obj: any, user_uid: string) {
+    let user = Object.assign(user_obj, { group: 'customer' });
+
+    return this.af.database.object(`/Users/${user_uid}`).update(user_obj);
   }
 
   addMilestoneBuilding(milestone_obj: any) {

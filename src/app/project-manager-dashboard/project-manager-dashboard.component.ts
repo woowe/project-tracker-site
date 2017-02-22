@@ -147,7 +147,8 @@ export class AddDealershipDialog {
   _user: User;
   filtered_users: any[] = [];
   added_users: any[] = [];
-  primary_contact: boolean = false;
+
+  add_user: any = {};
 
   dealership_uid: string = null;
 
@@ -211,12 +212,12 @@ export class AddDealershipDialog {
     console.log(this.products);
   }
 
-  addUser(name: string, email: string, phone: string, title: string) {
+  addUser() {
+    console.log('ADD USER', this.add_user);
     if(this.dealership_uid) {
-        this.projectManager.addUser({ name, email, phone, title, primary_contact: this.primary_contact }, this.dealership_uid);
+        this.projectManager.addUser( this.add_user , this.dealership_uid);
     }
-    this.added_users.push({ name, email, phone, title, primary_contact: this.primary_contact });
-    // this.projectManager.createCustomer(email);
+    this.added_users.push(this.add_user);
   }
 
   removeUser(idx: number) {
@@ -229,11 +230,22 @@ export class AddDealershipDialog {
   addDealership(name, address, city, state, zip) {
     this.projectManager.addDealership({name, address, city, state, zip}).then(ref => {
       this.dealership_uid = ref.path.o[1];
-      console.log("DEALERSHIP UID: ", this.dealership_uid);
 
       this.projectManager.addDealershipToPm(this.dealership_uid);
       for(let user of this.added_users) {
-        this.projectManager.addUser(user, this.dealership_uid);
+        Observable.from(this.projectManager.getUser(user.email))
+          .subscribe( existsing_user => {
+            if(existsing_user.length === 1) {
+              this.projectManager.addDealershipToUser(existsing_user[0].$key, this.dealership_uid);
+              this.projectManager.addUserToDealership(user.primary_contact, existsing_user[0].$key, this.dealership_uid);
+            } else {
+              this.projectManager.createCustomer(user)
+                .then( r => {
+                  this.projectManager.addDealershipToUser(r.uid, this.dealership_uid);
+                  this.projectManager.addUserToDealership(user.primary_contact, r.uid, this.dealership_uid);
+                });
+            }
+          });
       }
 
       for(let product of this.products) {
@@ -259,7 +271,4 @@ export class AddDealershipDialog {
     });
   }
 
-  primaryContactChange() {
-    this.primary_contact = !this.primary_contact;
-  }
 }
